@@ -18,13 +18,13 @@ elasticMonitoringCluster = os.environ.get('ES_METRICS_MONITORING_CLUSTER_URL', '
 # Enable Elasticsearch Security
 # read_username and read_password for read ES cluster information
 # write_username and write_passowrd for write monitor metric to ES.
-read_es_security_enable = os.environ.get('ES_MONITORING_CLUSTER_ENABLE_SECURITY', 'False')
-read_username = os.environ.get('ES_MONITORING_CLUSTER_USER', 'dummy_user')
-read_password = os.environ.get('ES_MONITORING_CLUSTER_PASSWORD', 'dummy_pass')
+read_es_security_enable = os.environ.get('ES_CLUSTER_ENABLE_SECURITY', 'False')
+read_username = os.environ.get('ES_CLUSTER_USER', 'dummy_user')
+read_password = os.environ.get('ES_CLUSTER_PASSWORD', 'dummy_pass')
 
-write_es_security_enable = os.environ.get('ES_CLUSTER_ENABLE_SECURITY', 'False')
-write_username = os.environ.get('ES_CLUSTER_USER', 'dummy_user')
-write_password = os.environ.get('ES_CLUSTER_PASSWORD', 'dummy_pass')
+write_es_security_enable = os.environ.get('ES_MONITORING_CLUSTER_ENABLE_SECURITY', 'False')
+write_username = os.environ.get('ES_MONITORING_CLUSTER_USER', 'dummy_user')
+write_password = os.environ.get('ES_MONITORING_CLUSTER_PASSWORD', 'dummy_pass')
 
 def handle_urlopen(urlData, username, password):
     if read_es_security_enable: 
@@ -34,13 +34,13 @@ def handle_urlopen(urlData, username, password):
         handler = urllib2.HTTPBasicAuthHandler(password_mgr)
         opener = urllib2.build_opener(handler)
         urllib2.install_opener(opener)
-        response = urllib2.urlopen(urlData, read_username, read_password)
+        response = urllib2.urlopen(urlData)
         return response
       except Exception as e:
         print "Error:  {}".format(str(e))
     else:
       try:
-        response = urllib.urlopen(urlData, read_username, read_password)
+        response = urllib.urlopen(urlData)
         return response
       except Exception as e:
         print "Error:  {}".format(str(e))
