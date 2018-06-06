@@ -120,7 +120,7 @@ def post_data(data):
         req = urllib2.Request(url, headers=headers, data=json.dumps(data))
         if write_es_security_enable:
             password_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
-            password_mgr.add_password(None, url, username, password)
+            password_mgr.add_password(None, url, write_username, write_password)
             handler = urllib2.HTTPBasicAuthHandler(password_mgr)
             opener = urllib2.build_opener(handler)
             urllib2.install_opener(opener)
